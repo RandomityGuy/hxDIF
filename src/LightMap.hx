@@ -1,6 +1,6 @@
 import haxe.io.Bytes;
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 import haxe.Int32;
 using ReaderExtensions;
 using WriterExtensions;
@@ -17,7 +17,7 @@ class LightMap
         this.keepLightMap = 0;
     }
 
-    public static function read(io: FileInput, version: Version) {
+    public static function read(io: BytesReader, version: Version) {
         var ret = new LightMap();
         ret.lightmap = io.readPNG();
 
@@ -28,7 +28,7 @@ class LightMap
         return ret;
     }
 
-    public function writeLightMap(io: FileOutput, version: Version) {
+    public function writeLightMap(io: BytesWriter, version: Version) {
         io.writePNG(this.lightmap);
         if (version.interiorType != "mbg" && version.interiorType != "tge") {
             io.writePNG(this.lightdirmap);

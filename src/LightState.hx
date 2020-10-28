@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 import haxe.Int32;
 
 class LightState
@@ -20,11 +20,11 @@ class LightState
         this.dataCount = dataCount;
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         return new LightState(io.readByte(),io.readByte(),io.readByte(),io.readInt32(),io.readInt32(),io.readInt16());
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         io.writeByte(this.red);
         io.writeByte(this.green);
         io.writeByte(this.blue);

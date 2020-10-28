@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 import math.Point3F;
 using ReaderExtensions;
 using WriterExtensions;
@@ -26,7 +26,7 @@ class VehicleCollision
 
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         var ret = new VehicleCollision();
         ret.vehicleCollisionFileVersion = io.readInt32();
         ret.convexHulls = io.readArray(ConvexHull.read);
@@ -46,7 +46,7 @@ class VehicleCollision
         return ret;
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         io.writeInt32(this.vehicleCollisionFileVersion);
         io.writeArray(this.convexHulls,(io,p) -> p.write(io));
         io.writeArray(this.convexHullEmitStrings,(io,p) -> io.writeByte(p));

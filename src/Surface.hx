@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 
 class Surface
 {
@@ -41,7 +41,7 @@ class Surface
         this.brushId = 0;
     }
 
-    public static function read(io: FileInput,version: Version) {
+    public static function read(io: BytesReader,version: Version) {
         var ret = new Surface();
         ret.windingStart = io.readInt32();
         
@@ -82,7 +82,7 @@ class Surface
         return ret;
     }
 
-    public function write(io: FileOutput,version: Version) {
+    public function write(io: BytesWriter,version: Version) {
         io.writeInt32(this.windingStart);
 
         if (version.interiorVersion >= 13)

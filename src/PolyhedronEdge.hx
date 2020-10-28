@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 
 class PolyhedronEdge
 {
@@ -15,11 +15,11 @@ class PolyhedronEdge
         this.faceIndex1 = faceIndex1;
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         return new PolyhedronEdge(io.readInt32(),io.readInt32(),io.readInt32(),io.readInt32());
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         io.writeInt32(this.faceIndex0);
         io.writeInt32(this.faceIndex1);
         io.writeInt32(this.pointIndex0);

@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 import math.Point3F;
 import haxe.ds.StringMap;
 using ReaderExtensions;
@@ -21,17 +21,17 @@ class Trigger
         this.polyhedron = new Polyhedron();
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         var ret = new Trigger();
-        ret.name = io.readString(io.readByte());
-        ret.datablock = io.readString(io.readByte());
+        ret.name = io.readStr();
+        ret.datablock = io.readStr();
         ret.properties = io.readDictionary();
         ret.polyhedron = Polyhedron.read(io);
         ret.offset = Point3F.read(io);
         return ret;
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         io.writeStr(this.name);
         io.writeStr(this.datablock);
         io.writeDictionary(this.properties);

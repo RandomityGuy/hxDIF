@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 
 class WindingIndex
 {
@@ -11,11 +11,11 @@ class WindingIndex
         this.windingCount = windingCount;
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         return new WindingIndex(io.readInt32(),io.readInt32());
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         io.writeInt32(this.windingStart);
         io.writeInt32(this.windingCount);
     }

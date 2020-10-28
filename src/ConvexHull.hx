@@ -1,6 +1,6 @@
 import haxe.Int32;
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 
 class ConvexHull
 {
@@ -36,7 +36,7 @@ class ConvexHull
         this.polyListStringStart = 0;
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         var ret = new ConvexHull();
         ret.hullStart = io.readInt32();
         ret.hullCount = io.readUInt16();
@@ -55,7 +55,7 @@ class ConvexHull
         return ret;
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         io.writeInt32(this.hullStart);
         io.writeUInt16(this.hullCount);
         io.writeFloat(this.minX);

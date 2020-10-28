@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 import math.Point3F;
 using WriterExtensions;
 class AISpecialNode
@@ -12,11 +12,11 @@ class AISpecialNode
         this.position = position;
     }
 
-    public static function read(io: FileInput) {
-        return new AISpecialNode(io.readString(io.readByte()),Point3F.read(io));
+    public static function read(io: BytesReader) {
+        return new AISpecialNode(io.readStr(),Point3F.read(io));
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         io.writeStr(this.name);
         this.position.write(io);
     }

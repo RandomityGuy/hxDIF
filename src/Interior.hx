@@ -1,5 +1,4 @@
 package;
-import sys.io.FileSeek;
 import math.Point4F;
 import math.Point3F;
 import math.SphereF.Spheref;
@@ -7,8 +6,8 @@ import math.Box3F;
 import haxe.io.BytesBuffer;
 import haxe.io.Bytes;
 import haxe.Int32;
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 using ReaderExtensions;
 using WriterExtensions;
 
@@ -78,7 +77,7 @@ class Interior
 
     }
 
-    public static function read(io: FileInput, version: Version) {
+    public static function read(io: BytesReader, version: Version) {
         if (version.interiorType == "?")
             version.interiorType = "tgea";
 
@@ -102,7 +101,7 @@ class Interior
         it.bspNodes = io.readArray( (io) -> {return BSPNode.read(io,version);});
         it.bspSolidLeaves = io.readArray(BSPSolidLeaf.read);
         it.materialListVersion = io.readByte();
-        it.materialList = io.readArray((io) -> io.readString(io.readByte()));
+        it.materialList = io.readArray((io) -> io.readStr());
         it.windings = io.readArrayAs((signed,param) -> param > 0,(io) -> io.readInt32(),io -> io.readInt16());
         it.windingIndices = io.readArray(WindingIndex.read);
         if (version.interiorVersion >= 12) {
@@ -125,7 +124,7 @@ class Interior
         } catch (e) {
             if (version.interiorType == "?")
                 version.interiorType = "mbg";
-            io.seek(pos,FileSeek.SeekBegin);
+            io.seek(pos);
             try {
                 it.surfaces = io.readArray(io -> Surface.read(io,version));
             } catch (e) {
@@ -226,7 +225,7 @@ class Interior
         return it;
     }
 
-    public function write(io: FileOutput,version: Version) {
+    public function write(io: BytesWriter,version: Version) {
         io.writeInt32(this.detailLevel);
         io.writeInt32(this.minPixels);
         this.boundingBox.write(io);

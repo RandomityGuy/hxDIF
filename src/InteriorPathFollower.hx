@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 import haxe.xml.Access;
 import haxe.ds.StringMap;
 import math.Point3F;
@@ -28,10 +28,10 @@ class InteriorPathFollower
         this.totalMS = 0;
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         var ret = new InteriorPathFollower();
-        ret.name = io.readString(io.readByte());
-        ret.datablock = io.readString(io.readByte());
+        ret.name = io.readStr();
+        ret.datablock = io.readStr();
         ret.interiorResIndex = io.readInt32();
         ret.offset = Point3F.read(io);
         ret.properties = io.readDictionary();
@@ -41,7 +41,7 @@ class InteriorPathFollower
         return ret;
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         io.writeStr(this.name);
         io.writeStr(this.datablock);
         io.writeInt32(this.interiorResIndex);

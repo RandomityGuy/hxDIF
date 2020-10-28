@@ -1,9 +1,7 @@
 package math;
 
-import haxe.macro.Type.FieldKind;
-import sys.io.FileOutput;
-import sys.io.FileInput;
-import sys.io.File;
+import io.BytesWriter;
+import io.BytesReader;
 
 class Box3F
 {
@@ -23,7 +21,7 @@ class Box3F
         this.maxZ = 0;
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         var ret = new Box3F();
         ret.minX = io.readFloat();
         ret.minY = io.readFloat();
@@ -34,7 +32,7 @@ class Box3F
         return ret;
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         io.writeFloat(this.minX);
         io.writeFloat(this.minY);
         io.writeFloat(this.minZ);

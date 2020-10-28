@@ -1,6 +1,6 @@
 import haxe.Int32;
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 
 class CoordBin
 {
@@ -12,14 +12,14 @@ class CoordBin
         this.binCount = 0;
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         var ret = new CoordBin();
         ret.binStart = io.readInt32();
         ret.binCount = io.readInt32();
         return ret;
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         io.writeInt32(this.binStart);
         io.writeInt32(this.binCount);
     }

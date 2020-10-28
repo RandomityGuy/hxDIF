@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 import haxe.Int32;
 
 class Edge2
@@ -20,7 +20,7 @@ class Edge2
         this.face1 = 0;
     }
 
-    public static function read(io: FileInput, version: Version) {
+    public static function read(io: BytesReader, version: Version) {
         var ret = new Edge2();
         ret.vertex0 = io.readInt32();
         ret.vertex1 = io.readInt32();
@@ -33,7 +33,7 @@ class Edge2
         return ret;
     }
 
-    public function write(io: FileOutput, version: Version) {
+    public function write(io: BytesWriter, version: Version) {
         io.writeInt32(this.vertex0);
         io.writeInt32(this.vertex1);
         io.writeInt32(this.normal0);

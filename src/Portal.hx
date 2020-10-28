@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 
 class Portal
 {
@@ -17,11 +17,11 @@ class Portal
         this.zoneBack = zoneBack;
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         return new Portal(io.readUInt16(),io.readUInt16(),io.readInt32(),io.readUInt16(),io.readUInt16());
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         io.writeUInt16(this.planeIndex);
         io.writeUInt16(this.triFanCount);
         io.writeInt32(this.triFanStart);

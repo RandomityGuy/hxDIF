@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 
 class Zone
 {
@@ -19,7 +19,7 @@ class Zone
         this.staticMeshCount = 0;
     }
 
-    public static function read(io: FileInput, version: Version) {
+    public static function read(io: BytesReader, version: Version) {
         var ret = new Zone();
         ret.portalStart = io.readUInt16();
         ret.portalCount = io.readUInt16();
@@ -32,7 +32,7 @@ class Zone
         return ret;
     }
 
-    public function write(io: FileOutput, version: Version) {
+    public function write(io: BytesWriter, version: Version) {
         io.writeInt16(this.portalStart);
         io.writeInt16(this.portalCount);
         io.writeInt32(this.surfaceStart);

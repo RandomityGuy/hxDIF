@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 
 class BSPNode
 {
@@ -23,7 +23,7 @@ class BSPNode
         this.isBackSolid = isBackSolid;
     }
 
-    public static function read(io: FileInput, version: Version) {
+    public static function read(io: BytesReader, version: Version) {
         var planeIndex = io.readUInt16();
         var frontIndex, backIndex,isfrontleaf = false,isfrontsolid = false,isbackleaf = false,isbacksolid = false;
         if (version.interiorVersion >= 14) {
@@ -64,7 +64,7 @@ class BSPNode
         return new BSPNode(planeIndex, frontIndex, backIndex,isfrontleaf,isfrontsolid,isbackleaf,isbacksolid);
     }
 
-    public function write(io: FileOutput, version: Version) {
+    public function write(io: BytesWriter, version: Version) {
         io.writeUInt16(this.planeIndex);
 
         if (version.interiorVersion >= 14) {

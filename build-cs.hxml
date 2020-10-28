@@ -5,6 +5,8 @@ math.Point3F
 math.Point4F
 math.QuatF
 math.SphereF
+io.BytesReader
+io.BytesWriter
 AISpecialNode
 AnimatedLight
 BSPNode

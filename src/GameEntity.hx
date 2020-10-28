@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 import math.Point4F;
 import haxe.xml.Access;
 import haxe.ds.StringMap;
@@ -21,16 +21,16 @@ class GameEntity
         this.properties = new StringMap<String>();
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         var ret = new GameEntity();
-        ret.datablock = io.readString(io.readByte());
-        ret.gameClass = io.readString(io.readByte());
+        ret.datablock = io.readStr();
+        ret.gameClass = io.readStr();
         ret.position = Point3F.read(io);
         ret.properties = io.readDictionary();
         return ret;
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         io.writeStr(this.datablock);
         io.writeStr(this.gameClass);
         this.position.write(io);

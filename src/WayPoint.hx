@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 import math.QuatF;
 import math.Point3F;
 
@@ -17,11 +17,11 @@ class WayPoint
         this.smoothingType = smoothingType;
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         return new WayPoint(Point3F.read(io), QuatF.read(io), io.readInt32(), io.readInt32());
     };
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         this.position.write(io);
         this.rotation.write(io);
         io.writeInt32(this.msToNext);

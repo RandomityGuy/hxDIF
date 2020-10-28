@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 import math.PlaneF;
 
 class TexGenEQ
@@ -12,14 +12,14 @@ class TexGenEQ
         planeY = new PlaneF();
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         var ret = new TexGenEQ();
         ret.planeX = PlaneF.read(io);
         ret.planeY = PlaneF.read(io);
         return ret;
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         this.planeX.write(io);
         this.planeY.write(io);
     }

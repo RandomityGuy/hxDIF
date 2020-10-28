@@ -1,6 +1,6 @@
 import haxe.Int32;
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 
 class StateData
 {
@@ -14,11 +14,11 @@ class StateData
         this.lightStateIndex = lightStateIndex;
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         return new StateData(io.readInt32(),io.readInt32(),io.readInt32());
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         io.writeInt32(this.surfaceIndex);
         io.writeInt32(this.mapIndex);
         io.writeInt32(this.lightStateIndex);

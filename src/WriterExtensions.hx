@@ -1,30 +1,24 @@
 package;
 import haxe.io.Bytes;
 import haxe.ds.StringMap;
-import sys.io.FileOutput;
+import io.BytesWriter;
 
 
 class WriterExtensions
 {
-    public static function writeStr(io: FileOutput, str: String) {
-        io.writeByte(str.length);
-        for (i in 0...str.length) {
-            io.writeByte(str.charCodeAt(i));
-        }
-    }
 
-    public static function writeDictionary(io: FileOutput, dict: StringMap<String>) {
+    public static function writeDictionary(io: BytesWriter, dict: StringMap<String>) {
         var len = 0;
         for (key in dict.keys())
             len++;
 
         for (kvp in dict.keyValueIterator()) {
-            writeStr(io,kvp.key);
-            writeStr(io,kvp.value);
+            io.writeStr(kvp.key);
+            io.writeStr(kvp.value);
         }
     }
 
-    public static function writeArray<V>(io: FileOutput,arr: Array<V>,writeMethod: (FileOutput,V)->Void) {
+    public static function writeArray<V>(io: BytesWriter,arr: Array<V>,writeMethod: (BytesWriter,V)->Void) {
         
         io.writeInt32(arr.length);
         for (i in 0...arr.length) {
@@ -34,7 +28,7 @@ class WriterExtensions
         return arr;
     }
 
-    public static function writeArrayFlags<V>(io: FileOutput,arr: Array<V>,flags: Int,writeMethod: (FileOutput,V)->Void) {
+    public static function writeArrayFlags<V>(io: BytesWriter,arr: Array<V>,flags: Int,writeMethod: (BytesWriter,V)->Void) {
         io.writeInt32(arr.length);
         io.writeInt32(flags);
         for (i in 0...arr.length) {
@@ -42,13 +36,13 @@ class WriterExtensions
         }
     };
 
-    public static function writePNG(io: FileOutput,arr: Array<Int>) {
+    public static function writePNG(io: BytesWriter,arr: Array<Int>) {
         for (i in 0...arr.length) {
             io.writeByte(arr[i]);
         }
     };
 
-    public static function writeColorF(io: FileOutput,color: Array<Int>) {
+    public static function writeColorF(io: BytesWriter,color: Array<Int>) {
         io.writeByte(color[0]);
         io.writeByte(color[1]);
         io.writeByte(color[2]);

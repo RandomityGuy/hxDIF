@@ -1,7 +1,7 @@
 package math;
 
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 
 class Point4F
 {
@@ -17,7 +17,7 @@ class Point4F
         this.w = 0;
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         var ret = new Point4F();
         ret.x = io.readFloat();
         ret.y = io.readFloat();
@@ -26,7 +26,7 @@ class Point4F
         return ret;
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         io.writeFloat(this.x);
         io.writeFloat(this.y);
         io.writeFloat(this.z);

@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 
 class BSPSolidLeaf
 {
@@ -11,11 +11,11 @@ class BSPSolidLeaf
         this.surfaceCount = surfaceCount;
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         return new BSPSolidLeaf(io.readInt32(),io.readInt16());
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         io.writeInt32(this.surfaceStart);
         io.writeInt16(this.surfaceCount);
     }

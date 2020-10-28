@@ -1,6 +1,9 @@
+import haxe.io.Bytes;
+#if sys
 import sys.io.File;
-import sys.io.FileOutput;
-import sys.io.FileInput;
+#end
+import io.BytesWriter;
+import io.BytesReader;
 using ReaderExtensions;
 using WriterExtensions;
 
@@ -21,17 +24,34 @@ class Dif
 
     }
 
+    #if sys
     public static function Load(path: String) {
         var f = File.read(path);
-        return Dif.read(f);
+        var bytes = f.readAll();
+        var br = new BytesReader(bytes);
+        return Dif.read(br);
     }
 
     public static function Save(dif: Dif, version: Version, path: String) {
         var f = File.write(path);
-        dif.write(f,version);
+        var bw = new BytesWriter();
+        dif.write(bw,version);
+        f.write(bw.getBuffer());
+    }
+    #end
+
+    public static function LoadFromBuffer(buffer: Bytes) {
+        var br = new BytesReader(buffer);
+        return Dif.read(br);
     }
 
-    public static function read(io: FileInput) {
+    public static function SaveToBuffer(dif: Dif, version: Version) {
+        var bw = new BytesWriter();
+        dif.write(bw,version);
+        return bw.getBuffer();
+    }
+
+    public static function read(io: BytesReader) {
         var ret = new Dif();
         var version = new Version();
         version.difVersion = io.readInt32();
@@ -53,7 +73,7 @@ class Dif
         return ret;
     }
 
-    public function write(io: FileOutput,version: Version) {
+    public function write(io: BytesWriter,version: Version) {
         io.writeInt32(this.difVersion);
         io.writeByte(this.previewIncluded);
 

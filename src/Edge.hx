@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 import haxe.Int32;
 
 class Edge
@@ -16,11 +16,11 @@ class Edge
         this.surfaceIndex1 = surfaceIndex1;
     }
 
-    public static function read(io: FileInput, version: Version) {
+    public static function read(io: BytesReader, version: Version) {
         return new Edge(io.readInt32(),io.readInt32(),io.readInt32(),io.readInt32());
     }
 
-    public function write(io: FileOutput, version: Version) {
+    public function write(io: BytesWriter, version: Version) {
         io.writeInt32(this.pointIndex0);
         io.writeInt32(this.pointIndex1);
         io.writeInt32(this.surfaceIndex0);

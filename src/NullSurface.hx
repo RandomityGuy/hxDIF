@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 
 class NullSurface 
 {
@@ -15,7 +15,7 @@ class NullSurface
         this.windingCount = 0;
     }
 
-    public static function read(io: FileInput, version: Version) {
+    public static function read(io: BytesReader, version: Version) {
         var ret = new NullSurface();
         ret.windingStart = io.readInt32();
         ret.planeIndex = io.readUInt16();
@@ -28,7 +28,7 @@ class NullSurface
         return ret;
     }
 
-    public function write(io: FileOutput, version: Version) {
+    public function write(io: BytesWriter, version: Version) {
         io.writeInt32(this.windingStart);
         io.writeUInt16(this.planeIndex);
         io.writeByte(this.surfaceFlags);

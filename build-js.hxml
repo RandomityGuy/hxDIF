@@ -39,4 +39,5 @@ WindingIndex
 WriterExtensions
 ReaderExtensions
 Zone
--php bin/php
+Main
+--js bin/js/hxDif.js

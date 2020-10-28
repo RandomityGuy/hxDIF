@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 
 class FFSurface
 {
@@ -17,7 +17,7 @@ class FFSurface
         this.fanMask = 0;
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         var ret = new FFSurface();
         ret.windingStart = io.readInt32();
         ret.windingCount = io.readByte();
@@ -27,7 +27,7 @@ class FFSurface
         return ret;
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         io.writeInt32(this.windingStart);
         io.writeByte(this.windingCount);
         io.writeInt16(this.planeIndex);

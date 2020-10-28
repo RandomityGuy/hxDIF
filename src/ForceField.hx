@@ -1,5 +1,5 @@
-import sys.io.FileOutput;
-import sys.io.FileInput;
+import io.BytesWriter;
+import io.BytesReader;
 import math.Point3F;
 import math.SphereF.Spheref;
 import math.Box3F;
@@ -26,11 +26,11 @@ class ForceField
 
     }
 
-    public static function read(io: FileInput) {
+    public static function read(io: BytesReader) {
         var ret = new ForceField();
         ret.forceFieldFileVersion = io.readInt32();
-        ret.name = io.readString(io.readByte());
-        ret.triggers = io.readArray(io -> io.readString(io.readByte()));
+        ret.name = io.readStr();
+        ret.triggers = io.readArray(io -> io.readStr());
         ret.boundingBox = Box3F.read(io);
         ret.boundingSphere = Spheref.read(io);
         ret.normals = io.readArray(Point3F.read);
@@ -44,7 +44,7 @@ class ForceField
         return ret;
     }
 
-    public function write(io: FileOutput) {
+    public function write(io: BytesWriter) {
         io.writeInt32(this.forceFieldFileVersion);
         io.writeStr(this.name);
         io.writeArray(this.triggers,(io,p) -> io.writeStr(p));
