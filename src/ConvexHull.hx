@@ -1,0 +1,74 @@
+import haxe.Int32;
+import sys.io.FileOutput;
+import sys.io.FileInput;
+
+class ConvexHull
+{
+    var hullStart: Int32;
+    var hullCount: Int32;
+    var minX: Float;
+    var minY: Float;
+    var minZ: Float;
+    var maxX: Float;
+    var maxY: Float;
+    var maxZ: Float;
+    var surfaceStart: Int32;
+    var surfaceCount: Int32;
+    var planeStart: Int32;
+    var polyListPlaneStart: Int32;
+    var polyListPointStart: Int32;
+    var polyListStringStart: Int32;
+
+    public function new() {
+        this.hullStart = 0;
+        this.hullCount = 0;
+        this.minX= 0;
+        this.minY= 0;
+        this.minZ= 0;
+        this.maxX= 0;
+        this.maxY= 0;
+        this.maxZ= 0;
+        this.surfaceStart = 0;
+        this.surfaceCount = 0;
+        this.planeStart = 0;
+        this.polyListPlaneStart = 0;
+        this.polyListPointStart = 0;
+        this.polyListStringStart = 0;
+    }
+
+    public static function read(io: FileInput) {
+        var ret = new ConvexHull();
+        ret.hullStart = io.readInt32();
+        ret.hullCount = io.readUInt16();
+        ret.minX = io.readFloat();
+        ret.minY = io.readFloat();
+        ret.minZ = io.readFloat();
+        ret.maxX = io.readFloat();
+        ret.maxY = io.readFloat();
+        ret.maxZ = io.readFloat();
+        ret.surfaceStart = io.readInt32();
+        ret.surfaceCount = io.readUInt16();
+        ret.planeStart = io.readInt32();
+        ret.polyListPlaneStart = io.readInt32();
+        ret.polyListPointStart = io.readInt32();
+        ret.polyListStringStart = io.readInt32();
+        return ret;
+    }
+
+    public function write(io: FileOutput) {
+        io.writeInt32(this.hullStart);
+        io.writeUInt16(this.hullCount);
+        io.writeFloat(this.minX);
+        io.writeFloat(this.minY);
+        io.writeFloat(this.minZ);
+        io.writeFloat(this.maxX);
+        io.writeFloat(this.maxY);
+        io.writeFloat(this.maxZ);
+        io.writeInt32(this.surfaceStart);
+        io.writeUInt16(this.surfaceCount);
+        io.writeInt32(this.planeStart);
+        io.writeInt32(this.polyListPlaneStart);
+        io.writeInt32(this.polyListPointStart);
+        io.writeInt32(this.polyListStringStart);
+    }
+}
