@@ -7,9 +7,9 @@ using WriterExtensions;
 
 class LightMap
 {
-    var lightmap: Array<Int>;
-    var lightdirmap: Array<Int>;
-    var keepLightMap: Int;
+    public var lightmap: Array<Int>;
+    public var lightdirmap: Array<Int>;
+    public var keepLightMap: Int;
 
     public function new() {
         this.lightmap = new Array<Int>();

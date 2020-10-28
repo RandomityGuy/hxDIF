@@ -5,10 +5,10 @@ import sys.io.FileInput;
 
 class PlaneF
 {
-    var x: Float;
-    var y: Float;
-    var z: Float;
-    var d: Float;
+    public var x: Float;
+    public var y: Float;
+    public var z: Float;
+    public var d: Float;
 
     public function new() {
         this.x = 0;

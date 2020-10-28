@@ -1,3 +1,4 @@
+import sys.io.File;
 import sys.io.FileOutput;
 import sys.io.FileInput;
 using ReaderExtensions;
@@ -5,19 +6,29 @@ using WriterExtensions;
 
 class Dif
 {
-    var difVersion: Int;
-    var previewIncluded: Int;
-    var interiors: Array<Interior>;
-    var subObjects: Array<Interior>;
-    var triggers: Array<Trigger>;
-    var interiorPathfollowers: Array<InteriorPathFollower>;
-    var forceFields: Array<ForceField>;
-    var aiSpecialNodes: Array<AISpecialNode>;
-    var vehicleCollision: VehicleCollision = null;
-    var gameEntities: Array<GameEntity> = null;
+    public var difVersion: Int;
+    public var previewIncluded: Int;
+    public var interiors: Array<Interior>;
+    public var subObjects: Array<Interior>;
+    public var triggers: Array<Trigger>;
+    public var interiorPathfollowers: Array<InteriorPathFollower>;
+    public var forceFields: Array<ForceField>;
+    public var aiSpecialNodes: Array<AISpecialNode>;
+    public var vehicleCollision: VehicleCollision = null;
+    public var gameEntities: Array<GameEntity> = null;
 
     public function new() {
 
+    }
+
+    public static function Load(path: String) {
+        var f = File.read(path);
+        return Dif.read(f);
+    }
+
+    public static function Save(dif: Dif, version: Version, path: String) {
+        var f = File.write(path);
+        dif.write(f,version);
     }
 
     public static function read(io: FileInput) {

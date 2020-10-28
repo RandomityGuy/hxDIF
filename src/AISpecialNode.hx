@@ -4,8 +4,8 @@ import math.Point3F;
 using WriterExtensions;
 class AISpecialNode
 {
-    var name: String;
-    var position: Point3F;
+    public var name: String;
+    public var position: Point3F;
 
     public function new(name,position) {
         this.name = name;

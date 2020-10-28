@@ -7,9 +7,9 @@ using WriterExtensions;
 
 class Polyhedron
 {
-    var pointList: Array<Point3F>;
-    var planeList: Array<PlaneF>;
-    var edgeList: Array<PolyhedronEdge>;
+    public var pointList: Array<Point3F>;
+    public var planeList: Array<PlaneF>;
+    public var edgeList: Array<PolyhedronEdge>;
 
     public function new() {
         this.pointList = new Array<Point3F>();

@@ -9,10 +9,10 @@ using WriterExtensions;
 
 class GameEntity
 {
-    var datablock: String;
-    var gameClass: String;
-    var position: Point3F;
-    var properties: StringMap<String>;
+    public var datablock: String;
+    public var gameClass: String;
+    public var position: Point3F;
+    public var properties: StringMap<String>;
 
     public function new() {
         this.datablock = "";

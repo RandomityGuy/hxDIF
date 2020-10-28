@@ -4,20 +4,20 @@ import sys.io.FileInput;
 
 class ConvexHull
 {
-    var hullStart: Int32;
-    var hullCount: Int32;
-    var minX: Float;
-    var minY: Float;
-    var minZ: Float;
-    var maxX: Float;
-    var maxY: Float;
-    var maxZ: Float;
-    var surfaceStart: Int32;
-    var surfaceCount: Int32;
-    var planeStart: Int32;
-    var polyListPlaneStart: Int32;
-    var polyListPointStart: Int32;
-    var polyListStringStart: Int32;
+    public var hullStart: Int32;
+    public var hullCount: Int32;
+    public var minX: Float;
+    public var minY: Float;
+    public var minZ: Float;
+    public var maxX: Float;
+    public var maxY: Float;
+    public var maxZ: Float;
+    public var surfaceStart: Int32;
+    public var surfaceCount: Int32;
+    public var planeStart: Int32;
+    public var polyListPlaneStart: Int32;
+    public var polyListPointStart: Int32;
+    public var polyListStringStart: Int32;
 
     public function new() {
         this.hullStart = 0;

@@ -8,19 +8,19 @@ using WriterExtensions;
 
 class ForceField
 {
-    var forceFieldFileVersion: Int;
-    var name: String;
-    var triggers: Array<String>;
-    var boundingBox: Box3F;
-    var boundingSphere: Spheref;
-    var normals: Array<Point3F>;
-    var planes: Array<Plane>;
-    var bspNodes: Array<BSPNode>;
-    var bspSolidLeaves: Array<BSPSolidLeaf>;
-    var windings: Array<Int>;
-    var surfaces: Array<FFSurface>;
-    var solidLeafSurfaces: Array<Int>;
-    var color: Array<Int>;
+    public var forceFieldFileVersion: Int;
+    public var name: String;
+    public var triggers: Array<String>;
+    public var boundingBox: Box3F;
+    public var boundingSphere: Spheref;
+    public var normals: Array<Point3F>;
+    public var planes: Array<Plane>;
+    public var bspNodes: Array<BSPNode>;
+    public var bspSolidLeaves: Array<BSPSolidLeaf>;
+    public var windings: Array<Int>;
+    public var surfaces: Array<FFSurface>;
+    public var solidLeafSurfaces: Array<Int>;
+    public var color: Array<Int>;
 
     public function new() {
 

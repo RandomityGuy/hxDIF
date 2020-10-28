@@ -3,10 +3,10 @@ import sys.io.FileInput;
 
 class NullSurface 
 {
-    var windingStart: Int;
-    var planeIndex: Int;
-    var surfaceFlags: Int;
-    var windingCount: Int;
+    public var windingStart: Int;
+    public var planeIndex: Int;
+    public var surfaceFlags: Int;
+    public var windingCount: Int;
 
     public function new() {
         this.windingStart = 0;

@@ -4,12 +4,12 @@ import haxe.Int32;
 
 class Edge2
 {
-    var vertex0: Int32;
-    var vertex1: Int32;
-    var normal0: Int32;
-    var normal1: Int32;
-    var face0: Int32;
-    var face1: Int32;
+    public var vertex0: Int32;
+    public var vertex1: Int32;
+    public var normal0: Int32;
+    public var normal1: Int32;
+    public var face0: Int32;
+    public var face1: Int32;
 
     public function new() {
         this.vertex0 = 0;

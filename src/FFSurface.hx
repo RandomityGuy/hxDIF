@@ -3,11 +3,11 @@ import sys.io.FileInput;
 
 class FFSurface
 {
-    var windingStart: Int;
-    var windingCount: Int;
-    var planeIndex: Int;
-    var surfaceFlags: Int;
-    var fanMask: Int;
+    public var windingStart: Int;
+    public var windingCount: Int;
+    public var planeIndex: Int;
+    public var surfaceFlags: Int;
+    public var fanMask: Int;
 
     public function new() {
         this.windingStart = 0;

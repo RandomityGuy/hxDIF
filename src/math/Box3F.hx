@@ -7,12 +7,12 @@ import sys.io.File;
 
 class Box3F
 {
-    var minX: Float;
-    var minY: Float;
-    var minZ: Float;
-    var maxX: Float;
-    var maxY: Float;
-    var maxZ: Float;
+    public var minX: Float;
+    public var minY: Float;
+    public var minZ: Float;
+    public var maxX: Float;
+    public var maxY: Float;
+    public var maxZ: Float;
 
     public function new() {
         this.minX = 0;

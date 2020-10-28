@@ -4,9 +4,9 @@ import sys.io.FileInput;
 
 class TexMatrix
 {
-    var t: Int32;
-    var n: Int32;
-    var b: Int32;
+    public var t: Int32;
+    public var n: Int32;
+    public var b: Int32;
 
     public function new() {
         this.t = 0;

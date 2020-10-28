@@ -3,23 +3,23 @@ import sys.io.FileInput;
 
 class Surface
 {
-    var windingStart: Int;
-    var windingCount: Int;
-    var planeIndex: Int;
-    var textureIndex: Int;
-    var texGenIndex: Int;
-    var surfaceFlags: Int;
-    var fanMask: Int;
-    var lightMapFinalWord: Int;
-    var lightMapTexGenXD: Float;
-    var lightMapTexGenYD: Float;
-    var lightCount: Int;
-    var lightStateInfoStart: Int;
-    var mapOffsetX: Int;
-    var mapOffsetY: Int;
-    var mapSizeX: Int;
-    var mapSizeY: Int;
-    var brushId: Int;
+    public var windingStart: Int;
+    public var windingCount: Int;
+    public var planeIndex: Int;
+    public var textureIndex: Int;
+    public var texGenIndex: Int;
+    public var surfaceFlags: Int;
+    public var fanMask: Int;
+    public var lightMapFinalWord: Int;
+    public var lightMapTexGenXD: Float;
+    public var lightMapTexGenYD: Float;
+    public var lightCount: Int;
+    public var lightStateInfoStart: Int;
+    public var mapOffsetX: Int;
+    public var mapOffsetY: Int;
+    public var mapSizeX: Int;
+    public var mapSizeY: Int;
+    public var brushId: Int;
 
     public function new() {
         this.windingStart = 0;

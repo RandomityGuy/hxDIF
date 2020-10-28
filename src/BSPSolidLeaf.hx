@@ -3,8 +3,8 @@ import sys.io.FileInput;
 
 class BSPSolidLeaf
 {
-    var surfaceStart: Int;
-    var surfaceCount: Int;
+    public var surfaceStart: Int;
+    public var surfaceCount: Int;
 
     public function new(surfaceStart, surfaceCount) {
         this.surfaceStart = surfaceStart;

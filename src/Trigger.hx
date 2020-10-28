@@ -7,11 +7,11 @@ using WriterExtensions;
 
 class Trigger
 {
-    var name: String;
-    var datablock: String;
-    var properties: StringMap<String>;
-    var polyhedron: Polyhedron;
-    var offset: Point3F;
+    public var name: String;
+    public var datablock: String;
+    public var properties: StringMap<String>;
+    public var polyhedron: Polyhedron;
+    public var offset: Point3F;
 
     public function new() {
         this.name = "";

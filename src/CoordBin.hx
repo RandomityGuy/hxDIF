@@ -4,8 +4,8 @@ import sys.io.FileInput;
 
 class CoordBin
 {
-    var binStart: Int32;
-    var binCount: Int32;
+    public var binStart: Int32;
+    public var binCount: Int32;
 
     public function new() {
         this.binStart = 0;

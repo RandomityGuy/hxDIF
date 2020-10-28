@@ -3,8 +3,8 @@ import sys.io.FileInput;
 
 class WindingIndex
 {
-    var windingStart: Int;
-    var windingCount: Int;
+    public var windingStart: Int;
+    public var windingCount: Int;
 
     public function new(windingStart, windingCount) {
         this.windingStart = windingStart;

@@ -5,11 +5,11 @@ import haxe.Int32;
 
 class AnimatedLight
 {
-    var nameIndex: Int32;
-    var stateIndex: Int32;
-    var stateCount: Int;
-    var flags: Int;
-    var duration: Int32;
+    public var nameIndex: Int32;
+    public var stateIndex: Int32;
+    public var stateCount: Int;
+    public var flags: Int;
+    public var duration: Int32;
 
     public function new(nameIndex: Int32,stateIndex: Int32, stateCount: Int,flags: Int,duration: Int32) {
         this.nameIndex = nameIndex;

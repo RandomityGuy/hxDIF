@@ -3,11 +3,11 @@ import sys.io.FileInput;
 
 class Portal
 {
-    var planeIndex: Int;
-    var triFanCount: Int;
-    var triFanStart: Int;
-    var zoneFront: Int;
-    var zoneBack: Int;
+    public var planeIndex: Int;
+    public var triFanCount: Int;
+    public var triFanStart: Int;
+    public var zoneFront: Int;
+    public var zoneBack: Int;
 
     public function new(planeIndex, triFanCount, triFanStart, zoneFront, zoneBack) {
         this.planeIndex = planeIndex;

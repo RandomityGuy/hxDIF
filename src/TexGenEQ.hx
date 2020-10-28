@@ -4,8 +4,8 @@ import math.PlaneF;
 
 class TexGenEQ
 {
-    var planeX: PlaneF;
-    var planeY: PlaneF;
+    public var planeX: PlaneF;
+    public var planeY: PlaneF;
 
     public function new() {
         planeX = new PlaneF();

@@ -4,12 +4,12 @@ import haxe.Int32;
 
 class LightState
 {
-    var red: Int;
-    var green: Int;
-    var blue: Int;
-    var activeTime: Int32;
-    var dataIndex: Int32;
-    var dataCount: Int;
+    public var red: Int;
+    public var green: Int;
+    public var blue: Int;
+    public var activeTime: Int32;
+    public var dataIndex: Int32;
+    public var dataCount: Int;
 
     public function new(red: Int,green: Int,blue: Int,activeTime: Int32,dataIndex: Int32,dataCount: Int) {
         this.red = red;

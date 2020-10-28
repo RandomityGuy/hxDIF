@@ -3,8 +3,8 @@ import sys.io.FileInput;
 
 class Plane
 {
-    var normalIndex: Int;
-    var planeDistance: Float;
+    public var normalIndex: Int;
+    public var planeDistance: Float;
 
     public function new(normalIndex,planeDistance) {
         this.normalIndex = normalIndex;

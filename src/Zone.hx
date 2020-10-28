@@ -3,12 +3,12 @@ import sys.io.FileInput;
 
 class Zone
 {
-    var portalStart: Int;
-    var portalCount: Int;
-    var surfaceStart: Int;
-    var surfaceCount: Int;
-    var staticMeshStart: Int;
-    var staticMeshCount: Int;
+    public var portalStart: Int;
+    public var portalCount: Int;
+    public var surfaceStart: Int;
+    public var surfaceCount: Int;
+    public var staticMeshStart: Int;
+    public var staticMeshCount: Int;
 
     public function new() {
         this.portalStart = 0;

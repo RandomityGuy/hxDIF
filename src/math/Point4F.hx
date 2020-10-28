@@ -5,10 +5,10 @@ import sys.io.FileInput;
 
 class Point4F
 {
-    var x: Float;
-    var y: Float;
-    var z: Float;
-    var w: Float;
+    public var x: Float;
+    public var y: Float;
+    public var z: Float;
+    public var w: Float;
 
     public function new() {
         this.x = 0;

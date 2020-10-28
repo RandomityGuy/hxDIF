@@ -5,9 +5,9 @@ import sys.io.FileInput;
 
 class Point3F
 {
-    var x: Float;
-    var y: Float;
-    var z: Float;
+    public var x: Float;
+    public var y: Float;
+    public var z: Float;
 
     public function new() {
         this.x = 0;

@@ -5,10 +5,10 @@ import math.Point3F;
 
 class WayPoint
 {
-    var position: Point3F;
-    var rotation: QuatF;
-    var msToNext: Int;
-    var smoothingType: Int;
+    public var position: Point3F;
+    public var rotation: QuatF;
+    public var msToNext: Int;
+    public var smoothingType: Int;
 
     public function new(position, rotation, msToNext, smoothingType) {
         this.position = position;

@@ -4,10 +4,10 @@ import haxe.Int32;
 
 class Edge
 {
-    var pointIndex0: Int32;
-    var pointIndex1: Int32;
-    var surfaceIndex0: Int32;
-    var surfaceIndex1: Int32;
+    public var pointIndex0: Int32;
+    public var pointIndex1: Int32;
+    public var surfaceIndex0: Int32;
+    public var surfaceIndex1: Int32;
 
     public function new(pointIndex0, pointIndex1, surfaceIndex0, surfaceIndex1) {
         this.pointIndex0 = pointIndex0;

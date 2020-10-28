@@ -6,21 +6,21 @@ using WriterExtensions;
 
 class VehicleCollision
 {
-    var vehicleCollisionFileVersion: Int;
-    var convexHulls: Array<ConvexHull>;
-    var convexHullEmitStrings: Array<Int>;
-    var hullIndices: Array<Int>;
-    var hullPlaneIndices: Array<Int>;
-    var hullEmitStringIndices: Array<Int>;
-    var hullSurfaceIndices: Array<Int>;
-    var polyListPlanes: Array<Int>;
-    var polyListPoints: Array<Int>;
-    var polyListStrings: Array<Int>;
-    var nullSurfaces: Array<NullSurface>;
-    var points: Array<Point3F>;
-    var planes: Array<Plane>;
-    var windings: Array<Int>;
-    var windingIndices: Array<WindingIndex>;
+    public var vehicleCollisionFileVersion: Int;
+    public var convexHulls: Array<ConvexHull>;
+    public var convexHullEmitStrings: Array<Int>;
+    public var hullIndices: Array<Int>;
+    public var hullPlaneIndices: Array<Int>;
+    public var hullEmitStringIndices: Array<Int>;
+    public var hullSurfaceIndices: Array<Int>;
+    public var polyListPlanes: Array<Int>;
+    public var polyListPoints: Array<Int>;
+    public var polyListStrings: Array<Int>;
+    public var nullSurfaces: Array<NullSurface>;
+    public var points: Array<Point3F>;
+    public var planes: Array<Plane>;
+    public var windings: Array<Int>;
+    public var windingIndices: Array<WindingIndex>;
 
     public function new() {
 

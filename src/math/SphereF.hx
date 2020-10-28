@@ -5,10 +5,10 @@ import sys.io.FileInput;
 
 class Spheref
 {
-    var originX: Float;
-    var originY: Float;
-    var originZ: Float;
-    var radius: Float;
+    public var originX: Float;
+    public var originY: Float;
+    public var originZ: Float;
+    public var radius: Float;
 
     public function new() {
         this.originX = 0;

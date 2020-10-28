@@ -4,9 +4,9 @@ import sys.io.FileInput;
 
 class StateData
 {
-    var surfaceIndex: Int32;
-    var mapIndex: Int32;
-    var lightStateIndex: Int32;
+    public var surfaceIndex: Int32;
+    public var mapIndex: Int32;
+    public var lightStateIndex: Int32;
 
     public function new(surfaceIndex: Int32, mapIndex: Int32, lightStateIndex: Int32) {
         this.surfaceIndex = surfaceIndex;

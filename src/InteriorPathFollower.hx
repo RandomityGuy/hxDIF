@@ -8,14 +8,14 @@ using WriterExtensions;
 
 class InteriorPathFollower
 {
-    var name: String;
-    var datablock: String;
-    var interiorResIndex: Int;
-    var offset: Point3F;
-    var properties: StringMap<String>;
-    var triggerId: Array<Int>;
-    var wayPoint: Array<WayPoint>;
-    var totalMS: Int;
+    public var name: String;
+    public var datablock: String;
+    public var interiorResIndex: Int;
+    public var offset: Point3F;
+    public var properties: StringMap<String>;
+    public var triggerId: Array<Int>;
+    public var wayPoint: Array<WayPoint>;
+    public var totalMS: Int;
 
     public function new() {
         this.name = "";

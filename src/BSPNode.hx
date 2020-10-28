@@ -3,15 +3,15 @@ import sys.io.FileInput;
 
 class BSPNode
 {
-    var planeIndex: Int;
-    var frontIndex: Int;
-    var backIndex: Int;
+    public var planeIndex: Int;
+    public var frontIndex: Int;
+    public var backIndex: Int;
 
-    var isFrontLeaf: Bool;
-    var isFrontSolid: Bool;
+    public var isFrontLeaf: Bool;
+    public var isFrontSolid: Bool;
 
-    var isBackLeaf: Bool;
-    var isBackSolid: Bool;
+    public var isBackLeaf: Bool;
+    public var isBackSolid: Bool;
 
     public function new(planeIndex, frontIndex, backIndex,isFrontLeaf,isFrontSolid,isBackLeaf,isBackSolid) {
         this.planeIndex = planeIndex;
