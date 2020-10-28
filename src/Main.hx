@@ -3,6 +3,6 @@ package;
 class Main
 {
     public static function main() {
-        trace("Hello World");
+        var dif = Dif.Load("escher.dif");
     }
 }

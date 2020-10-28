@@ -103,7 +103,7 @@ class Interior
         it.bspSolidLeaves = io.readArray(BSPSolidLeaf.read);
         it.materialListVersion = io.readByte();
         it.materialList = io.readArray((io) -> io.readString(io.readByte()));
-        it.windings = io.readArrayAs((signed,param) -> param >= 0,(io) -> io.readInt32(),io -> io.readInt16());
+        it.windings = io.readArrayAs((signed,param) -> param > 0,(io) -> io.readInt32(),io -> io.readInt16());
         it.windingIndices = io.readArray(WindingIndex.read);
         if (version.interiorVersion >= 12) {
             it.edges = io.readArray(io -> Edge.read(io,version));

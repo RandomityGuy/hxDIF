@@ -1,3 +1,7 @@
 .vscode
 .git
 bin
+src/Main.hx
+tests.hx
+escher.dif
+build.hxml

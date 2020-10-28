@@ -10,7 +10,8 @@ Never write a dif parser again
 ```haxe build-php.hxml```
 ## Python
 ```haxe build-py.hxml```
-
+## HashLink
+```haxe build-hl.hxml```
 # Usage
 ```
 Dif.Load(<path>) // Parses the dif at the file location and returns it
