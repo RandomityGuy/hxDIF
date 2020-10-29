@@ -2,6 +2,8 @@
 .git
 bin
 src/Main.hx
+src/*.js
 tests.hx
 escher.dif
 build.hxml
+hxDif.hxproj
