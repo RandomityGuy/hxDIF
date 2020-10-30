@@ -12,6 +12,8 @@ class BBSPNode
     public var polygon: Polygon;
     public var center: Point3F;
 
+    static var gatheredPolygons: Array<Polygon>;
+
     public function new() {
         
     }
@@ -49,15 +51,16 @@ class BBSPNode
     }
 
     public function gatherPolygons() {
-        var ret = [];
+        if (BBSPNode.gatheredPolygons == null)
+            BBSPNode.gatheredPolygons = new Array<Polygon>();
         if (this.isLeaf)
-            ret.push(this.polygon)
+            gatheredPolygons.push(this.polygon)
         else {
             if (this.front != null)
-                ret = ret.concat(this.front.gatherPolygons());
+                this.front.gatherPolygons();
             if (this.back != null)
-                ret = ret.concat(this.back.gatherPolygons());
+                this.back.gatherPolygons();
         }
-        return ret;
+        return BBSPNode.gatheredPolygons;
     }
 }

@@ -1,9 +1,7 @@
 package builder;
 
-import builder.KDTree.Pair;
+import builder.kdtree.KdTree;
 import math.PlaneF;
-import builder.KDTree.KdPoint;
-import builder.KDTree.KdTree;
 import haxe.crypto.Adler32;
 import io.BytesWriter;
 import math.Point3F;
@@ -21,27 +19,23 @@ class BSPBuilder {
     static function distance(p1: Point3F,p2: Point3F)
         return (p1.sub(p2)).length();
 
-    static function chooseNonZeroDistance(res: Array<Pair<KdPoint<BBSPNode>,Float>>) {
-        for (index => value in res) {
-            if (value.item1 != 0) return value;
-        }
-        return null;
-    }
-
     static function BuildBSP(nodes: Array<BBSPNode>) {
 
-        var pts = new Array<KdPoint<BBSPNode>>();
+        var kdtree = new KdTree<BBSPNode>(3);
+
+        // var pts = new Array<KdPoint<BBSPNode>>();
 
         for (index => value in nodes) {
             value.calculateCenter();
+            kdtree.Add(value.center, value);
         }
 
-        for (index => value in nodes) {
-            var pt = new KdPoint(value.center,value);
-            pts.push(pt);
-        }
+        // for (index => value in nodes) {
+        //     var pt = new KdPoint(value.center,value);
+        //     pts.push(pt);
+        // }
 
-        var kdtree = new KdTree(pts,distance);
+        // var kdtree = new KdTree(pts,distance);
 
         var newnodes = [];
 
@@ -61,21 +55,18 @@ class BSPBuilder {
             var node = nodes[i];
             var pt = node.center;
 
-            var nn = kdtree.nearest(pt,2,1e08);
+            kdtree.RemoveAt(pt);
+
+            var nn = kdtree.GetNearestNeighbours(pt, 1);
             
             var nb: BBSPNode;
 
             if (nn.length == 0) {
                 nb = previousnode;
             } else {
-                var nearest = chooseNonZeroDistance(nn);
-                if (nearest == null) {
-                    nb = previousnode;                  
-                } else {
-                    previousnode = nearest.item0.obj;
-                    nb = nearest.item0.obj;
-                    containednodelist.set(hashPt(nb.center),true);
-                }
+                previousnode = nn[0].value;
+                nb = nn[0].value;
+                containednodelist.set(hashPt(nb.center),true);
             }
 
             var center = pt.add(nb.center).scalarDiv(2);
@@ -87,6 +78,8 @@ class BSPBuilder {
             newnode.front = nb;
             newnode.back = node;
             newnode.plane = p;
+
+            kdtree.RemoveAt(nb.center);
 
             newnodes.push(newnode);
         }

@@ -1,9 +1,4 @@
 -cp src
-builder.BBSPNode
-builder.BSPBuilder
-builder.DifBuilder
-builder.HullPoly
-builder.Polygon
 math.Box3F
 math.PlaneF
 math.Point3F
@@ -44,4 +39,4 @@ WindingIndex
 WriterExtensions
 ReaderExtensions
 Zone
--python bin/py/python.py
+-python bin/py/hxDif.py

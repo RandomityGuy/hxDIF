@@ -1,33 +1,33 @@
 package;
 
-import builder.KDTree.KdPoint;
-import builder.KDTree.KdTree;
+import builder.kdtree.KdTree;
 import math.Point3F;
 
 class Main
 {
     public static function main() {
         #if sys
-        var kdpts = new Array<KdPoint<Int>>();
+
+        var kdtree = new KdTree<Int>(3);   
+        
         for (i in 0...5) {
-            var obj = new KdPoint(new Point3F(0,0,100 - (10 * i)),1);
-            kdpts.push(obj);
+            kdtree.Add([0,0,(100 - (10 * i))],1);
         }
 
-        var kdtree = new KdTree(kdpts,(p1,p2) -> (p2.sub(p1).length()));      
-
-        var pts = kdtree.nearest(new Point3F(0,0,100),2,1e08);
+        var pts = kdtree.GetNearestNeighbours([0, 0, 100],2);
         for (index => value in pts) {
-            trace(value.item0.point.x,value.item0.point.y,value.item0.point.z);
+            trace(value.point[0], value.point[1], value.point[2]);
+            kdtree.RemoveAt(value.point);
         }
 
         trace("a");
 
-        var pts = kdtree.nearest(new Point3F(0,0,101),3,1e08);
+        var pts = kdtree.GetNearestNeighbours([0, 0, 101],2);
         for (index => value in pts) {
-            trace(value.item0.point.x,value.item0.point.y,value.item0.point.z);
+            trace(value.point[0], value.point[1], value.point[2]);
         }
 
         #end
+
     }
 }

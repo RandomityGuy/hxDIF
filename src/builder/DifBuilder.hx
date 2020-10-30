@@ -88,6 +88,9 @@ class DifBuilder
         if (interior.planes == null)
             interior.planes = new Array<Plane>();
 
+        if (interior.normals == null)
+            interior.normals = new Array<Point3F>();
+
         if (this.planehashes == null)
             this.planehashes = new Map<Int,Int>();
 
@@ -111,6 +114,9 @@ class DifBuilder
     function ExportPlane(plane: PlaneF) {
         if (interior.planes == null)
             interior.planes = new Array<Plane>();
+
+        if (interior.normals == null)
+            interior.normals = new Array<Point3F>();
 
         if (this.planehashes == null)
             this.planehashes = new Map<Int,Int>();
@@ -149,6 +155,9 @@ class DifBuilder
 
         if (interior.pointVisibilities == null)
             interior.pointVisibilities = new Array<Int>();
+
+        if (pointhashes == null)
+            pointhashes = new Map<Int,Int>();
 
         var hash = hashPt(p);
         if (pointhashes.exists(hash)) {
@@ -454,7 +463,6 @@ class DifBuilder
         // var root = BSPBuilder.BuildBSPRecursive(bspnodes);
 
         var root = BSPBuilder.BuildBSPRecursive(bspnodes);
-        polygons = root.gatherPolygons();
 
         var interior = new Interior();
 

@@ -21,6 +21,12 @@ class Point3F
         if (dim == 2) return this.z;
         return -1;
     }
+
+    public function set(dim: Int, value: Float) {
+        if (dim == 0) this.x = value;
+        if (dim == 1) this.y = value;
+        if (dim == 2) this.z = value;
+    }
     
     @:op(A + B) public function add(rhs: Point3F) {
         return new Point3F(this.x + rhs.x,this.y + rhs.y, this.z + rhs.z);
@@ -55,9 +61,12 @@ class Point3F
     }
 
     public function normalized() {
-        return this.scalarDiv(this.length());
+        return this.length() != 0 ? this.scalarDiv(this.length()) : this;
     }
     
+    public function equal(other: Point3F) {
+        return this.x == other.x && this.y == other.y && this.z == other.z;
+    }
 
     public static function read(io: BytesReader) {
         var ret = new Point3F();
@@ -71,5 +80,9 @@ class Point3F
         io.writeFloat(this.x);
         io.writeFloat(this.y);
         io.writeFloat(this.z);
+    }
+
+    public function copy() {
+        return new Point3F(this.x,this.y,this.z);
     }
 }

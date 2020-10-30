@@ -1,9 +1,4 @@
 -cp src
-builder.BBSPNode
-builder.BSPBuilder
-builder.DifBuilder
-builder.HullPoly
-builder.Polygon
 math.Box3F
 math.PlaneF
 math.Point3F
