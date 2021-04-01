@@ -1,22 +1,22 @@
 import io.BytesWriter;
 import io.BytesReader;
 
-class WindingIndex
-{
-    public var windingStart: Int;
-    public var windingCount: Int;
+@:expose
+class WindingIndex {
+	public var windingStart:Int;
+	public var windingCount:Int;
 
-    public function new(windingStart, windingCount) {
-        this.windingStart = windingStart;
-        this.windingCount = windingCount;
-    }
+	public function new(windingStart, windingCount) {
+		this.windingStart = windingStart;
+		this.windingCount = windingCount;
+	}
 
-    public static function read(io: BytesReader) {
-        return new WindingIndex(io.readInt32(),io.readInt32());
-    }
+	public static function read(io:BytesReader) {
+		return new WindingIndex(io.readInt32(), io.readInt32());
+	}
 
-    public function write(io: BytesWriter) {
-        io.writeInt32(this.windingStart);
-        io.writeInt32(this.windingCount);
-    }
+	public function write(io:BytesWriter) {
+		io.writeInt32(this.windingStart);
+		io.writeInt32(this.windingCount);
+	}
 }

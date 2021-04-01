@@ -1,30 +1,48 @@
 package;
 
-import builder.kdtree.KdTree;
+import builder.octree.OctreePoint;
+import builder.octree.Octree;
+import haxe.crypto.Adler32;
+import io.BytesWriter;
 import math.Point3F;
 
 class Main
 {
+    static function hashPt(p: Point3F) {
+        var b = new BytesWriter();
+        b.writeFloat(p.x);
+        b.writeFloat(p.y);
+        b.writeFloat(p.z);
+        return Adler32.make(b.getBuffer());
+    }
+
     public static function main() {
         #if sys
 
-        var kdtree = new KdTree<Int>(3);   
-        
-        for (i in 0...5) {
-            kdtree.Add([0,0,(100 - (10 * i))],1);
+        var l = [];
+
+        for (i in 0...10000) {
+            l.push(new OctreePoint(new Point3F(Math.random() * 100,Math.random() * 100, Math.random() * 100),true));
         }
 
-        var pts = kdtree.GetNearestNeighbours([0, 0, 100],2);
-        for (index => value in pts) {
-            trace(value.point[0], value.point[1], value.point[2]);
-            kdtree.RemoveAt(value.point);
-        }
+        var oc = new Octree(l);
 
-        trace("a");
+        var pairs = new Array<Array<Point3F>>();
+        var containedlist = new Map<Int,Bool>();
+        for (pt in l) {
+            if (containedlist.exists(hashPt(pt.point))) continue;
 
-        var pts = kdtree.GetNearestNeighbours([0, 0, 101],2);
-        for (index => value in pts) {
-            trace(value.point[0], value.point[1], value.point[2]);
+            oc.remove(pt.point);
+
+            var nn = oc.knn(pt.point,1);
+
+            if (nn.length > 0) {
+                oc.remove(nn[0].point);
+                containedlist.set(hashPt(nn[0].point),true);
+                pairs.push([pt.point, nn[0].point]);
+            }
+
+            containedlist.set(hashPt(pt.point),true);
         }
 
         #end

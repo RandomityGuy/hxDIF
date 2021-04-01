@@ -39,6 +39,7 @@ WindingIndex
 WriterExtensions
 ReaderExtensions
 Zone
+-lib hxtsdgen
 --js bin/js/hxDif.js
 -D js-es=6
 --macro addMetadata('@:expose', 'haxe.io.Bytes')
