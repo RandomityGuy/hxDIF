@@ -1,0 +1,9 @@
+haxe build-cpp.hxml
+haxe build-cs.hxml
+haxe build-hl.hxml
+haxe build-java.hxml
+haxe build-js.hxml
+haxe build-lua.hxml
+haxe build-php.hxml
+haxe build-py.hxml
+haxe build-ts.hxml

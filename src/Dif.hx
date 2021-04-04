@@ -4,6 +4,15 @@ import sys.io.File;
 #end
 import io.BytesWriter;
 import io.BytesReader;
+#if js
+import js.lib.ArrayBuffer;
+#end
+#if python
+import python.Bytearray;
+#end
+#if cs
+import cs.NativeArray;
+#end
 
 using ReaderExtensions;
 using WriterExtensions;
@@ -39,7 +48,7 @@ class Dif {
 	}
 	#end
 
-	public static function LoadFromBuffer(buffer:Bytes) {
+	public static function LoadFromBuffer(buffer:haxe.io.Bytes) {
 		var br = new BytesReader(buffer);
 		return Dif.read(br);
 	}
@@ -49,6 +58,45 @@ class Dif {
 		dif.write(bw, version);
 		return bw.getBuffer();
 	}
+
+	#if js
+	public static function LoadFromArrayBuffer(buffer:ArrayBuffer) {
+		var br = new BytesReader(Bytes.ofData(buffer));
+		return Dif.read(br);
+	}
+
+	public static function SaveToArrayBuffer(dif:Dif, version:Version) {
+		var bw = new BytesWriter();
+		dif.write(bw, version);
+		return bw.getBuffer().getData();
+	}
+	#end
+
+	#if python
+	public static function LoadFromByteArray(buffer:Bytearray) {
+		var br = new BytesReader(Bytes.ofData(buffer));
+		return Dif.read(br);
+	}
+
+	public static function SaveToByteArray(dif:Dif, version:Version) {
+		var bw = new BytesWriter();
+		dif.write(bw, version);
+		return bw.getBuffer().getData();
+	}
+	#end
+
+	#if cs
+	public static function LoadFromArray(buffer:cs.NativeArray<cs.types.UInt8>) {
+		var br = new BytesReader(Bytes.ofData(buffer));
+		return Dif.read(br);
+	}
+
+	public static function SaveToArray(dif:Dif, version:Version) {
+		var bw = new BytesWriter();
+		dif.write(bw, version);
+		return bw.getBuffer().getData();
+	}
+	#end
 
 	public static function read(io:BytesReader) {
 		var ret = new Dif();
