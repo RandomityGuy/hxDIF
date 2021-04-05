@@ -41,7 +41,6 @@ class BytesReader {
 		for (i in 0...len) {
 			str += String.fromCharCode(this.readByte());
 		}
-		position += len;
 		return str;
 	}
 
