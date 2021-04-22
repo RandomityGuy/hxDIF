@@ -7,6 +7,6 @@ class Version {
 	public function new() {
 		this.difVersion = 44;
 		this.interiorVersion = 0;
-		this.interiorType = "mbg";
+		this.interiorType = "?";
 	}
 }

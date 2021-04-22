@@ -179,7 +179,7 @@ class Interior {
 			it.numSubObjects = io.readInt32();
 		}
 
-		it.convexHulls = io.readArray(ConvexHull.read);
+		it.convexHulls = io.readArray((io) -> ConvexHull.read(io, version));
 		it.convexHullEmitStrings = io.readArray(io -> io.readByte());
 		it.hullIndices = io.readArrayAs((alt, that) -> alt, io -> io.readInt32(), io -> io.readUInt16());
 		it.hullPlaneIndices = io.readArrayAs((alt, that) -> true, io -> io.readUInt16(), io -> io.readUInt16());
@@ -287,7 +287,7 @@ class Interior {
 			io.writeInt32(this.numSubObjects);
 		}
 
-		io.writeArray(this.convexHulls, (io, p) -> p.write(io));
+		io.writeArray(this.convexHulls, (io, p) -> p.write(io, version));
 		io.writeArray(this.convexHullEmitStrings, (io, p) -> io.writeByte(p));
 		io.writeArray(this.hullIndices, (io, p) -> io.writeInt32(p));
 		io.writeArray(this.hullPlaneIndices, (io, p) -> io.writeInt16(p));

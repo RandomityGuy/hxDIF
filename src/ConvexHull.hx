@@ -18,6 +18,7 @@ class ConvexHull {
 	public var polyListPlaneStart:Int32;
 	public var polyListPointStart:Int32;
 	public var polyListStringStart:Int32;
+	public var staticMesh:Bool;
 
 	public function new() {
 		this.hullStart = 0;
@@ -34,9 +35,10 @@ class ConvexHull {
 		this.polyListPlaneStart = 0;
 		this.polyListPointStart = 0;
 		this.polyListStringStart = 0;
+		this.staticMesh = false;
 	}
 
-	public static function read(io:BytesReader) {
+	public static function read(io:BytesReader, version:Version) {
 		var ret = new ConvexHull();
 		ret.hullStart = io.readInt32();
 		ret.hullCount = io.readUInt16();
@@ -52,10 +54,14 @@ class ConvexHull {
 		ret.polyListPlaneStart = io.readInt32();
 		ret.polyListPointStart = io.readInt32();
 		ret.polyListStringStart = io.readInt32();
+
+		if (version.interiorVersion >= 12) {
+			ret.staticMesh = io.readByte() > 0;
+		}
 		return ret;
 	}
 
-	public function write(io:BytesWriter) {
+	public function write(io:BytesWriter, version:Version) {
 		io.writeInt32(this.hullStart);
 		io.writeUInt16(this.hullCount);
 		io.writeFloat(this.minX);
@@ -70,5 +76,9 @@ class ConvexHull {
 		io.writeInt32(this.polyListPlaneStart);
 		io.writeInt32(this.polyListPointStart);
 		io.writeInt32(this.polyListStringStart);
+
+		if (version.interiorVersion >= 12) {
+			io.writeByte(this.staticMesh ? 1 : 0);
+		}
 	}
 }

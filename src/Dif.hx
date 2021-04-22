@@ -112,7 +112,7 @@ class Dif {
 		ret.aiSpecialNodes = io.readArray(AISpecialNode.read);
 		var readVehicleCollision = io.readInt32();
 		if (readVehicleCollision == 1)
-			ret.vehicleCollision = VehicleCollision.read(io);
+			ret.vehicleCollision = VehicleCollision.read(io, version);
 		var readGameEntities = io.readInt32();
 		if (readGameEntities == 2)
 			ret.gameEntities = io.readArray(GameEntity.read);
@@ -132,7 +132,7 @@ class Dif {
 		io.writeArray(this.aiSpecialNodes, (io, p) -> p.write(io));
 		if (this.vehicleCollision != null) {
 			io.writeInt32(1);
-			this.vehicleCollision.write(io);
+			this.vehicleCollision.write(io, version);
 		} else {
 			io.writeInt32(0);
 		}

@@ -25,10 +25,10 @@ class VehicleCollision {
 
 	public function new() {}
 
-	public static function read(io:BytesReader) {
+	public static function read(io:BytesReader, version:Version) {
 		var ret = new VehicleCollision();
 		ret.vehicleCollisionFileVersion = io.readInt32();
-		ret.convexHulls = io.readArray(ConvexHull.read);
+		ret.convexHulls = io.readArray((io) -> ConvexHull.read(io, version));
 		ret.convexHullEmitStrings = io.readArray(io -> io.readByte());
 		ret.hullIndices = io.readArray(io -> io.readInt32());
 		ret.hullPlaneIndices = io.readArray(io -> io.readInt16());
@@ -45,9 +45,9 @@ class VehicleCollision {
 		return ret;
 	}
 
-	public function write(io:BytesWriter) {
+	public function write(io:BytesWriter, version:Version) {
 		io.writeInt32(this.vehicleCollisionFileVersion);
-		io.writeArray(this.convexHulls, (io, p) -> p.write(io));
+		io.writeArray(this.convexHulls, (io, p) -> p.write(io, version));
 		io.writeArray(this.convexHullEmitStrings, (io, p) -> io.writeByte(p));
 		io.writeArray(this.hullIndices, (io, p) -> io.writeInt32(p));
 		io.writeArray(this.hullPlaneIndices, (io, p) -> io.writeInt16(p));
