@@ -121,16 +121,16 @@ class Interior {
 
 		var pos = io.tell();
 		try {
-			it.surfaces = io.readArray(io -> Surface.read(io, version));
+			it.surfaces = io.readArray(io -> Surface.read(io, version, it));
 			if (version.interiorType == "?") {
 				version.interiorType = "tge";
 			}
 		} catch (e) {
-			if (version.interiorType == "?")
-				version.interiorType = "mbg";
+			if (version.interiorType == "tgea")
+				version.interiorType = "tge";
 			io.seek(pos);
 			try {
-				it.surfaces = io.readArray(io -> Surface.read(io, version));
+				it.surfaces = io.readArray(io -> Surface.read(io, version, it));
 			} catch (e) {}
 		}
 

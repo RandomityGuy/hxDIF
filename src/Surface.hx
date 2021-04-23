@@ -1,3 +1,4 @@
+import haxe.Exception;
 import io.BytesWriter;
 import io.BytesReader;
 
@@ -41,18 +42,42 @@ class Surface {
 		this.brushId = 0;
 	}
 
-	public static function read(io:BytesReader, version:Version) {
+	public static function read(io:BytesReader, version:Version, interior:Interior) {
 		var ret = new Surface();
 		ret.windingStart = io.readInt32();
+
+		if (interior.windings.length <= ret.windingStart)
+			throw new Exception("DIF Type Error");
 
 		if (version.interiorVersion >= 13)
 			ret.windingCount = io.readInt32();
 		else
 			ret.windingCount = io.readByte();
 
+		if (ret.windingStart + ret.windingCount > interior.windings.length) {
+			throw new Exception("DIF Type Error");
+		}
+
 		ret.planeIndex = io.readInt16();
+		var flipped = (ret.planeIndex >> 15 != 0);
+		var planeIndexTemp = ret.planeIndex & ~0x8000;
+
+		if ((planeIndexTemp & ~0x8000) >= interior.planes.length) {
+			throw new Exception("DIF Type Error");
+		}
+
 		ret.textureIndex = io.readInt16();
+
+		if (ret.textureIndex >= interior.materialList.length) {
+			throw new Exception("DIF Type Error");
+		}
+
 		ret.texGenIndex = io.readInt32();
+
+		if (ret.texGenIndex >= interior.texGenEQs.length) {
+			throw new Exception("DIF Type Error");
+		}
+
 		ret.surfaceFlags = io.readByte();
 		ret.fanMask = io.readInt32();
 		ret.lightMapFinalWord = io.readInt16();
