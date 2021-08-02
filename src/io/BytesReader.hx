@@ -38,8 +38,15 @@ class BytesReader {
 	public function readStr() {
 		var len = this.readByte();
 		var str = "";
+		var reading = true;
 		for (i in 0...len) {
-			str += String.fromCharCode(this.readByte());
+			var ch = this.readByte();
+			if (ch == 0) {
+				reading = false;
+			}
+			if (reading) {
+				str += String.fromCharCode(ch);
+			}
 		}
 		return str;
 	}

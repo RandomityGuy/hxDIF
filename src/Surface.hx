@@ -7,6 +7,7 @@ class Surface {
 	public var windingStart:Int;
 	public var windingCount:Int;
 	public var planeIndex:Int;
+	public var planeFlipped:Bool;
 	public var textureIndex:Int;
 	public var texGenIndex:Int;
 	public var surfaceFlags:Int;
@@ -58,13 +59,14 @@ class Surface {
 			throw new Exception("DIF Type Error");
 		}
 
-		ret.planeIndex = io.readInt16();
-		var flipped = (ret.planeIndex >> 15 != 0);
-		var planeIndexTemp = ret.planeIndex & ~0x8000;
+		var planeIndex = io.readInt16();
+		ret.planeFlipped = (planeIndex >> 15 != 0);
+		var planeIndexTemp = planeIndex & ~0x8000;
 
 		if ((planeIndexTemp & ~0x8000) >= interior.planes.length) {
 			throw new Exception("DIF Type Error");
 		}
+		ret.planeIndex = planeIndexTemp;
 
 		ret.textureIndex = io.readInt16();
 
@@ -115,7 +117,7 @@ class Surface {
 		else
 			io.writeByte(this.windingCount);
 
-		io.writeInt16(this.planeIndex);
+		io.writeInt16(this.planeIndex | (this.planeFlipped ? 0x8000 : 0));
 		io.writeInt16(this.textureIndex);
 		io.writeInt32(this.texGenIndex);
 		io.writeByte(this.surfaceFlags);
