@@ -48,7 +48,7 @@ class Surface {
 		ret.windingStart = io.readInt32();
 
 		if (interior.windings.length <= ret.windingStart)
-			throw new Exception("DIF Type Error");
+			throw new Exception("DIF Type Error interior.windings.length <= ret.windingStart");
 
 		if (version.interiorVersion >= 13)
 			ret.windingCount = io.readInt32();
@@ -56,7 +56,7 @@ class Surface {
 			ret.windingCount = io.readByte();
 
 		if (ret.windingStart + ret.windingCount > interior.windings.length) {
-			throw new Exception("DIF Type Error");
+			throw new Exception("DIF Type Error ret.windingStart + ret.windingCount > interior.windings.length");
 		}
 
 		var planeIndex = io.readInt16();
@@ -64,20 +64,20 @@ class Surface {
 		var planeIndexTemp = planeIndex & ~0x8000;
 
 		if ((planeIndexTemp & ~0x8000) >= interior.planes.length) {
-			throw new Exception("DIF Type Error");
+			throw new Exception("DIF Type Error (planeIndexTemp & ~0x8000) >= interior.planes.length");
 		}
 		ret.planeIndex = planeIndexTemp;
 
 		ret.textureIndex = io.readInt16();
 
 		if (ret.textureIndex >= interior.materialList.length) {
-			throw new Exception("DIF Type Error");
+			throw new Exception("DIF Type Error ret.textureIndex >= interior.materialList.length");
 		}
 
 		ret.texGenIndex = io.readInt32();
 
 		if (ret.texGenIndex >= interior.texGenEQs.length) {
-			throw new Exception("DIF Type Error");
+			throw new Exception("DIF Type Error ret.texGenIndex >= interior.texGenEQs.length");
 		}
 
 		ret.surfaceFlags = io.readByte();
@@ -115,9 +115,11 @@ class Surface {
 		if (version.interiorVersion >= 13)
 			io.writeInt32(this.windingCount);
 		else
-			io.writeByte(this.windingCount);
+			io.writeByte(this.windingCount & 0xFF);
 
-		io.writeInt16(this.planeIndex | (this.planeFlipped ? 0x8000 : 0));
+		var pindex = this.planeIndex | (this.planeFlipped ? 0x8000 : 0);
+
+		io.writeInt16(pindex);
 		io.writeInt16(this.textureIndex);
 		io.writeInt32(this.texGenIndex);
 		io.writeByte(this.surfaceFlags);

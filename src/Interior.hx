@@ -1,5 +1,6 @@
 package;
 
+import haxe.Exception;
 import math.Point4F;
 import math.Point3F;
 import math.SphereF.Spheref;
@@ -131,7 +132,9 @@ class Interior {
 			io.seek(pos);
 			try {
 				it.surfaces = io.readArray(io -> Surface.read(io, version, it));
-			} catch (e) {}
+			} catch (e) {
+				throw e;
+			}
 		}
 
 		if (version.interiorVersion >= 2 && version.interiorVersion <= 5) {
@@ -228,6 +231,7 @@ class Interior {
 	}
 
 	public function write(io:BytesWriter, version:Version) {
+		io.writeInt32(version.interiorVersion);
 		io.writeInt32(this.detailLevel);
 		io.writeInt32(this.minPixels);
 		this.boundingBox.write(io);
@@ -267,10 +271,10 @@ class Interior {
 			io.writeArray(this.normalLMapIndices, (io, p) -> io.writeByte(p));
 		} else if (version.interiorVersion >= 13) {
 			io.writeArray(this.normalLMapIndices, (io, p) -> io.writeInt32(p));
-			io.writeArray(this.normalLMapIndices, (io, p) -> io.writeInt32(p));
+			io.writeArray(this.alarmLMapIndices, (io, p) -> io.writeInt32(p));
 		} else {
-			io.writeArray(this.normalLMapIndices, (io, p) -> io.writeByte(p));
-			io.writeArray(this.normalLMapIndices, (io, p) -> io.writeByte(p));
+			io.writeArray(this.normalLMapIndices, (io, p) -> io.writeByte(p & 0xFF));
+			io.writeArray(this.alarmLMapIndices, (io, p) -> io.writeByte(p & 0xFF));
 		}
 
 		io.writeArray(this.nullSurfaces, (io, p) -> p.write(io, version));
