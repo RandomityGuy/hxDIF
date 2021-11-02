@@ -133,7 +133,14 @@ class Interior {
 			try {
 				it.surfaces = io.readArray(io -> Surface.read(io, version, it));
 			} catch (e) {
-				throw e;
+				// Try with larger lightmaps
+				version.useLargeLightmaps = true;
+				io.seek(pos);
+				try {
+					it.surfaces = io.readArray(io -> Surface.read(io, version, it));
+				} catch (e) {
+					throw e;
+				}
 			}
 		}
 

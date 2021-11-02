@@ -94,10 +94,18 @@ class Surface {
 			ret.mapSizeX = io.readInt32();
 			ret.mapSizeY = io.readInt32();
 		} else {
-			ret.mapOffsetX = io.readByte();
-			ret.mapOffsetY = io.readByte();
-			ret.mapSizeX = io.readByte();
-			ret.mapSizeY = io.readByte();
+			if (version.interiorVersion == 0 && version.interiorType == "tge" && version.useLargeLightmaps) {
+				// thing with BIG_LIGHTMAPS
+				ret.mapOffsetX = io.readUInt16();
+				ret.mapOffsetY = io.readUInt16();
+				ret.mapSizeX = io.readUInt16();
+				ret.mapSizeY = io.readUInt16();
+			} else {
+				ret.mapOffsetX = io.readByte();
+				ret.mapOffsetY = io.readByte();
+				ret.mapSizeX = io.readByte();
+				ret.mapSizeY = io.readByte();
+			}
 		}
 
 		if (version.interiorType != "tge" && version.interiorType != "mbg") {
@@ -136,10 +144,18 @@ class Surface {
 			io.writeInt32(this.mapSizeX);
 			io.writeInt32(this.mapSizeY);
 		} else {
-			io.writeByte(this.mapOffsetX);
-			io.writeByte(this.mapOffsetY);
-			io.writeByte(this.mapSizeX);
-			io.writeByte(this.mapSizeY);
+			if (version.interiorVersion == 0 && version.interiorType == "tge" && version.useLargeLightmaps) {
+				// thing with BIG_LIGHTMAPS
+				io.writeUInt16(this.mapOffsetX);
+				io.writeUInt16(this.mapOffsetY);
+				io.writeUInt16(this.mapSizeX);
+				io.writeUInt16(this.mapSizeY);
+			} else {
+				io.writeByte(this.mapOffsetX);
+				io.writeByte(this.mapOffsetY);
+				io.writeByte(this.mapSizeX);
+				io.writeByte(this.mapSizeY);
+			}
 		}
 
 		if (version.interiorType != "tge" && version.interiorType != "mbg") {
