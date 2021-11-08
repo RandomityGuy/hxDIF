@@ -54,7 +54,7 @@ class Interior {
 	public var stateDataFlags:Int;
 	public var stateDataBuffers:Array<Int>;
 	public var nameBuffer:Array<Int>;
-	public var numSubObjects:Int;
+	public var subObjects:Array<MirrorSubObject>;
 	public var convexHulls:Array<ConvexHull>;
 	public var convexHullEmitStrings:Array<Int>;
 	public var hullIndices:Array<Int>;
@@ -180,23 +180,48 @@ class Interior {
 			it.stateDatas = new Array<StateData>();
 			it.stateDataFlags = 0;
 			it.stateDataBuffers = new Array<Int>();
-			it.numSubObjects = 0;
+			it.subObjects = new Array<MirrorSubObject>();
 		} else {
 			it.stateDatas = io.readArray(StateData.read);
 			it.stateDataBuffers = io.readArrayFlags(io -> io.readByte());
 			it.nameBuffer = io.readArray(io -> io.readByte());
 			it.stateDataFlags = 0;
-			it.numSubObjects = io.readInt32();
+			it.subObjects = io.readArray(io -> {
+				var soKey = io.readInt32();
+				if (soKey == 1) {
+					return MirrorSubObject.read(io, version);
+				} else {
+					throw new Exception("Unknown SubObject key: ");
+				}
+			});
 		}
 
 		it.convexHulls = io.readArray((io) -> ConvexHull.read(io, version));
 		it.convexHullEmitStrings = io.readArray(io -> io.readByte());
-		it.hullIndices = io.readArrayAs((alt, that) -> alt, io -> io.readInt32(), io -> io.readUInt16());
-		it.hullPlaneIndices = io.readArrayAs((alt, that) -> true, io -> io.readUInt16(), io -> io.readUInt16());
-		it.hullEmitStringIndices = io.readArrayAs((alt, that) -> alt, io -> io.readInt32(), io -> io.readUInt16());
-		it.hullSurfaceIndices = io.readArrayAs((alt, that) -> alt, io -> io.readInt32(), io -> io.readUInt16());
-		it.polyListPlanes = io.readArrayAs((alt, that) -> true, io -> io.readUInt16(), io -> io.readUInt16());
-		it.polyListPoints = io.readArrayAs((alt, that) -> alt, io -> io.readInt32(), io -> io.readUInt16());
+		if (version.interiorVersion == 0) {
+			it.hullIndices = io.readArray(io -> io.readInt32());
+		} else
+			it.hullIndices = io.readArrayAs((alt, that) -> alt, io -> io.readInt32(), io -> io.readUInt16());
+		if (version.interiorVersion == 0) {
+			it.hullPlaneIndices = io.readArray(io -> io.readUInt16());
+		} else
+			it.hullPlaneIndices = io.readArrayAs((alt, that) -> true, io -> io.readInt32(), io -> io.readUInt16());
+		if (version.interiorVersion == 0) {
+			it.hullEmitStringIndices = io.readArray(io -> io.readInt32());
+		} else
+			it.hullEmitStringIndices = io.readArrayAs((alt, that) -> alt, io -> io.readInt32(), io -> io.readUInt16());
+		if (version.interiorVersion == 0) {
+			it.hullSurfaceIndices = io.readArray(io -> io.readInt32());
+		} else
+			it.hullSurfaceIndices = io.readArrayAs((alt, that) -> alt, io -> io.readInt32(), io -> io.readUInt16());
+		if (version.interiorVersion == 0) {
+			it.polyListPlanes = io.readArray(io -> io.readUInt16());
+		} else
+			it.polyListPlanes = io.readArrayAs((alt, that) -> true, io -> io.readInt32(), io -> io.readUInt16());
+		if (version.interiorVersion == 0) {
+			it.polyListPoints = io.readArray(io -> io.readInt32());
+		} else
+			it.polyListPoints = io.readArrayAs((alt, that) -> alt, io -> io.readInt32(), io -> io.readUInt16());
 		it.polyListStrings = io.readArray(io -> io.readByte());
 
 		it.coordBins = new Array<CoordBin>();
@@ -295,7 +320,11 @@ class Interior {
 			io.writeArray(this.stateDatas, (io, p) -> p.write(io));
 			io.writeArrayFlags(this.stateDataBuffers, this.stateDataFlags, (io, p) -> io.writeByte(p));
 			io.writeArray(this.nameBuffer, (io, p) -> io.writeByte(p));
-			io.writeInt32(this.numSubObjects);
+			io.writeInt32(this.subObjects.length);
+			for (i in 0...this.subObjects.length) {
+				io.writeInt32(1);
+				this.subObjects[i].write(io, version);
+			}
 		}
 
 		io.writeArray(this.convexHulls, (io, p) -> p.write(io, version));
